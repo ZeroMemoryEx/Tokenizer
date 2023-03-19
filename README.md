@@ -27,7 +27,7 @@
   |               | 0x012C              |
 
 
-  ![image](https://user-images.githubusercontent.com/60795188/226148257-b679202e-2371-4bda-98ea-689107221075.png)
+    ![image](https://user-images.githubusercontent.com/60795188/226148257-b679202e-2371-4bda-98ea-689107221075.png)
   
 * The `_EX_FAST_REF` structure in Windows contains three members: `Object` and `RefCount` and `Value`
 
