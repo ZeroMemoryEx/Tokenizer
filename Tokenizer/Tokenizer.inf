@@ -1,0 +1,77 @@
+;
+; Tokenizer.inf
+;
+
+[Version]
+Signature="$WINDOWS NT$"
+Class=System ; TODO: specify appropriate Class
+ClassGuid={4d36e97d-e325-11ce-bfc1-08002be10318} ; TODO: specify appropriate ClassGuid
+Provider=%ManufacturerName%
+CatalogFile=Tokenizer.cat
+DriverVer= ; TODO: set DriverVer in stampinf property pages
+PnpLockdown=1
+
+[DestinationDirs]
+DefaultDestDir = 12
+Tokenizer_Device_CoInstaller_CopyFiles = 11
+
+[SourceDisksNames]
+1 = %DiskName%,,,""
+
+[SourceDisksFiles]
+Tokenizer.sys  = 1,,
+WdfCoInstaller$KMDFCOINSTALLERVERSION$.dll=1 ; make sure the number matches with SourceDisksNames
+
+;*****************************************
+; Install Section
+;*****************************************
+
+[Manufacturer]
+%ManufacturerName%=Standard,NT$ARCH$
+
+[Standard.NT$ARCH$]
+%Tokenizer.DeviceDesc%=Tokenizer_Device, Root\Tokenizer ; TODO: edit hw-id
+
+[Tokenizer_Device.NT]
+CopyFiles=Drivers_Dir
+
+[Drivers_Dir]
+Tokenizer.sys
+
+;-------------- Service installation
+[Tokenizer_Device.NT.Services]
+AddService = Tokenizer,%SPSVCINST_ASSOCSERVICE%, Tokenizer_Service_Inst
+
+; -------------- Tokenizer driver install sections
+[Tokenizer_Service_Inst]
+DisplayName    = %Tokenizer.SVCDESC%
+ServiceType    = 1               ; SERVICE_KERNEL_DRIVER
+StartType      = 3               ; SERVICE_DEMAND_START
+ErrorControl   = 1               ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\Tokenizer.sys
+
+;
+;--- Tokenizer_Device Coinstaller installation ------
+;
+
+[Tokenizer_Device.NT.CoInstallers]
+AddReg=Tokenizer_Device_CoInstaller_AddReg
+CopyFiles=Tokenizer_Device_CoInstaller_CopyFiles
+
+[Tokenizer_Device_CoInstaller_AddReg]
+HKR,,CoInstallers32,0x00010000, "WdfCoInstaller$KMDFCOINSTALLERVERSION$.dll,WdfCoInstaller"
+
+[Tokenizer_Device_CoInstaller_CopyFiles]
+WdfCoInstaller$KMDFCOINSTALLERVERSION$.dll
+
+[Tokenizer_Device.NT.Wdf]
+KmdfService =  Tokenizer, Tokenizer_wdfsect
+[Tokenizer_wdfsect]
+KmdfLibraryVersion = $KMDFVERSION$
+
+[Strings]
+SPSVCINST_ASSOCSERVICE= 0x00000002
+ManufacturerName="<Your manufacturer name>" ;TODO: Replace with your manufacturer name
+DiskName = "Tokenizer Installation Disk"
+Tokenizer.DeviceDesc = "Tokenizer Device"
+Tokenizer.SVCDESC = "Tokenizer Service"
