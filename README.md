@@ -39,9 +39,11 @@
   
 # Usage
 
-* Note: In the next update, i will add a feature to spawn a privileged Command Prompt process .
+* You can either spawn a privileged process or elevate an already existing process ID. 
 
-* First, you need to either spawn a new process or choose an already existing process ID, For the sake of this explanation, i will use a cmd as an example. 
+  ![image](https://user-images.githubusercontent.com/60795188/226211454-7266638a-8cce-4417-a139-d3490d1fb68e.png) 
+
+* For the sake of this explanation, we will focus on the second option and use CMD as an example
 
   ![image](https://user-images.githubusercontent.com/60795188/226149275-cfd76437-dda3-4964-9a54-43fa20247b3e.png)
   
@@ -68,6 +70,6 @@
 
 # DEMO
 
-  https://user-images.githubusercontent.com/60795188/226200873-d0516968-b175-4ff4-8e85-02018c641679.mp4
+   https://user-images.githubusercontent.com/60795188/226200873-d0516968-b175-4ff4-8e85-02018c641679.mp4
 
 
