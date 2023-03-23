@@ -27,8 +27,6 @@ ParseAndReplaceEProcessToken(
     int pid
 )
 {
-    KAPC_STATE apcState;
-    BOOLEAN apcAttached = FALSE;
     PVOID process = NULL;
     PVOID sys = NULL;
     PACCESS_TOKEN TargetToken;
@@ -141,7 +139,6 @@ NTSTATUS processIoctlRequest(
 )
 {
     PIO_STACK_LOCATION  pstack = IoGetCurrentIrpStackLocation(Irp);
-    HANDLE processId = IoGetRequestorProcessId(Irp);
     int pstatus = 0;
     if (pstack->Parameters.DeviceIoControl.IoControlCode == ppid)
     {
@@ -149,7 +146,7 @@ NTSTATUS processIoctlRequest(
 
         RtlCopyMemory(&inputInt, Irp->AssociatedIrp.SystemBuffer, sizeof(inputInt));
 
-        int pstatus = ParseAndReplaceEProcessToken(inputInt);
+        pstatus = ParseAndReplaceEProcessToken(inputInt);
 
         DbgPrint("Received input value: %d\n", inputInt);
     }
